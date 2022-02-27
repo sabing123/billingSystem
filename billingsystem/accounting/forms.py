@@ -21,7 +21,7 @@ class CustomerForm(forms.Form):
 
 class ItemForm(forms.Form):
     item_no = forms.CharField(label='S.N')
-    particular = forms.TextInput(label='Particular')
+    particular = forms.CharField(label='Particular')
     alt_qty=forms.DecimalField(label='Alt Qty')
     qty = forms.DecimalField(label='Qty')
     Uom = forms.CharField(label='Uom')
@@ -35,8 +35,8 @@ class CalculateForm(forms.Form):
     taxable_amount = forms.DecimalField(label='Taxable Amount')
     vat = forms.DecimalField(label='VAT 13%')
     total_amount = forms.DecimalField(label='Total Amount')
-    in_words = forms.Textarea(label='In Words')
-    remarks = forms.Textarea(label='Remarks')
+    in_words = forms.Textarea()
+    remarks = forms.Textarea()
 
 
 

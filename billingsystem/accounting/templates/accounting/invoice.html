@@ -1,0 +1,32 @@
+<form action="/invoice-form/" method="post">
+    {% csrf_token %}
+    
+    {{ form.non_field_errors }}
+    <table>
+    <td>
+    <div class="fieldWrapper">
+        {{ form.customer_name.errors }}
+        <label for="{{ form.customer_name.id_for_label }}">Customer Name:</label>
+        {{ form.customer_name }}
+    </div><br>  
+    <div class="fieldWrapper">
+        {{ form.address.errors }}
+        <label for="{{ form.address.id_for_label }}">Address:</label>
+        {{ form.address }}
+    </div><br>
+    <div class="fieldWrapper">
+        {{ form.phone.errors }}
+        <label for="{{ form.phone.id_for_label }}">Phone:</label>
+        {{ form.phone }}
+    </div>
+    <div class="fieldWrapper">
+        {{ form.pan_no.errors }}
+        <label for="{{ form.pan_no.id_for_label }}">PAN:</label>
+        {{ form.pan_no }}
+    </div>
+    </td>
+    </table>
+
+
+    <input type="submit" value="Submit">
+</form>
