@@ -1,3 +1,4 @@
+from email.policy import default
 from django import forms
 
 PAYMENT_CHOICES =(
@@ -7,36 +8,36 @@ PAYMENT_CHOICES =(
 )
 
 class CustomerForm(forms.Form):
-    customer_name = forms.CharField(label='Customer Name', max_length=100)
-    address = forms.CharField(label='Address', required=False, max_length=100)
-    phone = forms.CharField(label='Phone No', required=False, max_length=15)
-    pan_no = forms.CharField(label='PAN', max_length=15)
-    invoice_no = forms.CharField(label='Invoice No', max_length=15)
-    invoice_date = forms.DateField(label='Invoice Date')
+    customer_name = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}))
+    address = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}))
+    phone = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}))
+    pan_no = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}))
+    invoice_no = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 160px;' 'height: 30px;', 'class': 'form-control'}))
+    invoice_date = forms.DateField(widget=forms.DateInput(attrs={'style': 'width: 160px;' 'height: 30px;', 'class': 'form-control'}))
     payment_mode= forms.ChoiceField(choices=PAYMENT_CHOICES)
-    received_by= forms.CharField(label='Received By', max_length=100)
-    prepared_by= forms.CharField(label='Prepared By', max_length=100)
-    authorized_Sign= forms.CharField(label='Authorized Sign', max_length=100)
-    date_time = forms.DateTimeField(label='Date & Time')
+    received_by= forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}))
+    prepared_by= forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}))
+    authorized_sign= forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}))
+    date_time = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}))
 
 class ItemForm(forms.Form):
-    item_no = forms.CharField(label='S.N')
-    particular = forms.CharField(label='Particular')
-    alt_qty=forms.DecimalField(label='Alt Qty')
-    qty = forms.DecimalField(label='Qty')
-    Uom = forms.CharField(label='Uom')
-    rate = forms.DecimalField(label='Rate')
-    discount = forms.DecimalField(label='Discount')
-    amount = forms.DecimalField(label='Amount')
+    item_no = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 60px;' 'height: 30px;', 'class': 'form-control'}))
+    particular = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 250px;' 'height: 30px;', 'class': 'form-control'}))
+    alt_qty=forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 100px;' 'height: 30px;', 'class': 'form-control'}))
+    qty = forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 100px;' 'height: 30px;', 'class': 'form-control'}))
+    Uom = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 100px;' 'height: 30px;', 'class': 'form-control'}))
+    rate = forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 100px;' 'height: 30px;', 'class': 'form-control'}))
+    discount = forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 100px;' 'height: 30px;', 'class': 'form-control'}))
+    amount = forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 100px;' 'height: 30px;', 'class': 'form-control'}))
 
 class CalculateForm(forms.Form):
-    subtotal = forms.DecimalField(label='Sub Total')
-    discount = forms.DecimalField(label='Discount')
-    taxable_amount = forms.DecimalField(label='Taxable Amount')
-    vat = forms.DecimalField(label='VAT 13%')
-    total_amount = forms.DecimalField(label='Total Amount')
-    in_words = forms.Textarea()
-    remarks = forms.Textarea()
+    subtotal = forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}))
+    discount = forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}))
+    taxable_amount = forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}))
+    vat = forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}))
+    total_amount = forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}))
+    in_words = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 300px;' 'height: 30px;', 'class': 'form-control'}))
+    remarks = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 300px;' 'height: 30px;', 'class': 'form-control'}))
 
 
 
