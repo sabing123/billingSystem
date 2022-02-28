@@ -8,22 +8,24 @@ def home(request):
     context = {}
     return render(request, 'accounting/index.html', context)
 
+
 def invoice(request):
-    extra_forms = 2
-    ItemFormSet = formset_factory(ItemForm, extra=extra_forms,  max_num=20)
+    extra_forms = 1
+    ItemFormSet = formset_factory(ItemForm, extra=extra_forms)
     if request.method == 'POST':
-        if 'additems' in request.POST and request.POST['additems'] == 'true':
+        customerform = CustomerForm(request.POST)
+        calform = CalculateForm(request.POST)     
+        if 'itemadd' in request.POST and request.POST['itemadd'] == 'true':
             formset_dictionary_copy = request.POST.copy()
-            formset_dictionary_copy['form-TOTAL_FORMS'] = int(formset_dictionary_copy['form-TOTAL_FORMS']) + extra_forms
-            formset = ItemFormSet(formset_dictionary_copy)
+            formset_dictionary_copy['form-TOTAL_FORMS'] = int(
+                formset_dictionary_copy['form-TOTAL_FORMS']) + extra_forms
+            itemform = ItemFormSet(formset_dictionary_copy)       
         else:
-            formset = ItemFormSet(request.POST)
-            customerform = CustomerForm(request.POST)
-            calform = CalculateForm(request.POST)
-            if customerform.is_valid() & formset.is_valid() & calform.is_valid():
+            itemform = ItemFormSet(request.POST)
+            if itemform.is_valid() & customerform.is_valid() & calform.is_valid():
                 return HttpResponse('/about/contact/thankyou')
     else:
         customerform = CustomerForm()
-        formset = ItemFormSet()
+        itemform = ItemFormSet()
         calform = CalculateForm()
-    return render(request, 'accounting/invoice.html', {'form': customerform, 'iform': formset, 'calform': calform})
+    return render(request, 'accounting/invoice.html', {'form': customerform, 'iform': itemform, 'calform': calform})

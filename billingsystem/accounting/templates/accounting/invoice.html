@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/invoice.css' %}" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 </head>
 
 <body>
@@ -181,12 +185,12 @@
                                     <thead class="bg-none bgc-default-tp1">
                                         <tr class="text-white">
                                             {{ iform.item_no.errors }}
-                                            <th><label for="{{ iform.item_no.id_for_label }}">Item No</label></th>
+                                            <th><label for="{{ iform.item_no.id_for_label }}">S.N</label></th>
                                             {{ iform.particular.errors }}
                                             <th><label for="{{ iform.particular.id_for_label }}">Particular</label>
                                             </th>
-                                            {{ iform.alt_qty.errors }}
-                                            <th><label for="{{ iform.alt_qty.id_for_label }}">Alt Qty</label></th>
+                                            <!-- {{ iform.alt_qty.errors }}
+                                            <th><label for="{{ iform.alt_qty.id_for_label }}">Alt Qty</label></th> -->
                                             {{ iform.qty.errors }}
                                             <th><label for="{{ iform.qty.id_for_label }}">Qty</label></th>
                                             {{ iform.Uom.errors }}
@@ -201,11 +205,11 @@
                                     </thead>
                                     {{ iform.management_form }}
                                     {% for iforms in iform %}
-                                    <tbody class="text-30 text-secondary-d3">
+                                    <tbody class="text">
                                         <tr>
                                             <td>{{ iforms.item_no }}</td>
                                             <td>{{ iforms.particular }}</td>
-                                            <td>{{ iforms.alt_qty }}</td>
+                                            <!-- <td>{{ iforms.alt_qty }}</td> -->
                                             <td>{{ iforms.qty }}</td>
                                             <td>{{ iforms.Uom }}</td>
                                             <td>{{ iforms.rate }}</td>
@@ -214,9 +218,9 @@
                                         </tr>
                                     </tbody>
                                     {% endfor %}
-                                    <input type="hidden" value="True" name="additems" id="additems">
-                                    <button class="btn btn-primary" id="additemsbutton">Add items</button>                   
-                                </table>
+                                </table> 
+                                    <input type="hidden" value="false" name="itemadd" id="itemadd">
+                                 <button class="btn btn-primary" id="additemsbutton">Add items</button>
                             </div>
 
 
@@ -298,25 +302,25 @@
                                 <div class="col-12">
                                     <div class="row my-1"> 
                                         <div class="col-2 text-left">
-                                        {{ form.received_by.errors}}
-                                        <label for="{{ form.received_by.id_for_label }}">Received By:</label>
+                                        {{ calform.received_by.errors}}
+                                        <label for="{{ calform.received_by.id_for_label }}">Received By:</label>
                                         </div>
                                         
-                                        {{form.received_by}}
+                                        {{calform.received_by}}
                                        
                                         <div class="col-2 text-left">
-                                            {{ form.prepared_by.errors}}
-                                            <label for="{{ form.prepared_by.id_for_label }}">Prepared By:</label>
+                                            {{ calform.prepared_by.errors}}
+                                            <label for="{{ calform.prepared_by.id_for_label }}">Prepared By:</label>
                                         </div>
                                         
-                                            {{form.prepared_by}}
+                                            {{calform.prepared_by}}
                                         
                                         <div class="col-2 text-left">
-                                            {{ form.authorized_sign.errors}}
-                                            <label for="{{ form.authorized_sign.id_for_label }}">Authorized Sign:</label>
+                                            {{ calform.authorized_sign.errors}}
+                                            <label for="{{ calform.authorized_sign.id_for_label }}">Authorized Sign:</label>
                                         </div>
                                         
-                                            {{form.authorized_sign}}
+                                            {{calform.authorized_sign}}
                                     
                                     </div>
                                 </div>
@@ -325,10 +329,10 @@
 
                             <div class="row my-2">
                                 <div class="col text-left">
-                                {{ form.date_time.errors}}
+                                {{ calform.date_time.errors}}
                                 <span class="text-secondary-d1 text-105"> 
-                                    <label for="{{ form.date_time.id_for_label }}">Print Date & Time:</label></span>
-                                    {{ form.date_time }}
+                                    <label for="{{ calform.date_time.id_for_label }}">Print Date & Time:</label></span>
+                                    {{ calform.date_time }}
                                 </div>
                                     <div class="col text-right">
                                 <input type="submit" class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0"
@@ -339,13 +343,13 @@
                 </div>
             </div>
         </div>
-    </form>
-</body>
-<script>
-    $(document).ready(function () {
-        $("#additemsbutton").on('click', function (event) {
-            $("#additems").val("true");
+    </form> 
+    <script>
+        $(document).ready(function () {
+            $("#additemsbutton").on('click', function (event) {
+                $("#itemadd").val("true");
+            });
         });
-    });
-</script>
+    </script>
+</body>
 
