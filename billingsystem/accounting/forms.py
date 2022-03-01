@@ -12,7 +12,7 @@ class CustomerForm(forms.Form):
     address = forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;', 'class': 'form-control'}))
     phone = forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;', 'class': 'form-control'}))
     pan_no = forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;', 'class': 'form-control'}))
-    invoice_no = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 160px;' 'height: 30px;', 'class': 'form-control'}))
+    invoice_no = forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 160px;' 'height: 30px;', 'class': 'form-control'}))
     invoice_date = forms.DateField(initial=datetime.date.today, widget=forms.NumberInput(attrs={'type': 'date', 'style': 'width: 160px;' 'height: 30px;', 'class': 'form-control'}))
     payment_mode= forms.ChoiceField(choices=PAYMENT_CHOICES)
   
