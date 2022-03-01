@@ -1,0 +1,118 @@
+{% extends 'accounting/main.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'accounting/navigation.html'%}
+
+<div class="row">
+    <div class="col-md-5">
+        <h5>CUSTOMERS:</h5>
+        <hr>
+        <div class="card card-body">
+            <!-- Button to Open the Modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create Ledger
+            </button>
+            <table class="table table-sm" style="text-align: center;">
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                </tr>
+
+                {% for ledger_d in ledger_d %}
+                <tr>
+                    <td><a href="{% url 'ledgerdetailpage' ledger_d.id %}" class="btn btn-sm btn-info"> View </a></td>
+                    <td>{{ledger_d.c_name}}</td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <h5>LAST 5 ORDERS</h5>
+        <hr>
+        <div class="card card-body">
+            <!--          -->
+            <table class="table table-sm" style="text-align: center;">
+                <tr>
+                    <th>Product</th>
+                    <th>Date Ordered</th>
+                    <th>Status</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                </tr>
+
+
+                <tr>
+                    <td>Snacks</td>
+                    <td>2021/28/02</td>
+                    <td>Pending</td>
+                    <td><a href="#"><i class="fa fa-upload"
+                                       style="font-size:24px; color:#32cd32"></i></a>
+                    </td>
+                    <td><a href="#"><i class="fa fa-close"
+                                       style="font-size:24px;color:red"></i></a></td>
+                </tr>
+
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<!--modal start-->
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Create Customer Details</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <form method="POST" action="">
+                {% csrf_token %}
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="col-4"></div>
+                    <div class="col-12">
+                        <label for="cname">Customer Name <b style="color: #dc3545;">*</b></label>
+                        <input type="text" name="c_name" class="form-control" id="cname" required>
+                        <div class="invalid-feedback">This field is required</div>
+                    </div>
+
+                    <div class="col-2"></div>
+                    <div class="col-12">
+                        <label for="sdate">Start Date <b style="color: #dc3545;">*</b></label>
+                        <input type="date" name="c_date_form_start" class="form-control" id="sdate" required>
+                        <div class="invalid-feedback">This field is required</div>
+                    </div>
+
+                    <div class="col-2"></div>
+                    <div class="col-12">
+                        <label for="edate">End Date <b style="color: #dc3545;">*</b></label>
+                        <input type="date" name="c_date_form_end" class="form-control" id="edate" required>
+                        <div class="invalid-feedback">This field is required</div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success"> Next</button>
+                    </div>
+
+                </div>
+            </form>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
