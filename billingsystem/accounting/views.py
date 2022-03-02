@@ -23,7 +23,7 @@ def invoice(request):
         else:
             itemform = ItemFormSet(request.POST)
             if itemform.is_valid() & customerform.is_valid() & calform.is_valid():
-                return HttpResponse('/about/contact/thankyou')
+                return HttpResponse('/thankyou')
     else:
         customerform = CustomerForm()
         itemform = ItemFormSet()
