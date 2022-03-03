@@ -1,0 +1,46 @@
+{% extends 'accounting/main.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'accounting/navigation.html'%}
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <h2>Ledger Creating Page</h2>
+    <table class="table table-sm" style="text-align: center;">
+        <tr>
+            <th>Name: {{ledger.c_name}}
+            <input class="btn btn-outline-info" type="submit" name="saveLedger" value="Save" style="float:right;">
+            </th>
+        </tr>
+        {{ formset.management_form }}
+        {% for form in formset %}
+        <tr>
+
+
+            <td>
+                <b style="color: #dc3545;">*</b> <label>Description </label> &nbsp; &nbsp;
+                {{form.c_description}}
+
+ &nbsp; &nbsp; &nbsp;
+                <b style="color: #dc3545;">*</b> <label>Date </label> &nbsp; &nbsp;
+                {{form.c_current_date}}
+ &nbsp; &nbsp; &nbsp;
+                <b style="color: #dc3545;">*</b> <label>Debit Amount </label> &nbsp; &nbsp;
+                {{form.c_debt_amt}}
+ &nbsp; &nbsp; &nbsp;
+                <b style="color: #dc3545;">*</b> <label>Credit Amount </label> &nbsp; &nbsp;
+                {{form.c_credit_amt}}
+
+
+
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</form>
+
+{% endblock %}
