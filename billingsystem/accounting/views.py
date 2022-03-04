@@ -2,7 +2,7 @@
 from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import CustomerForm, ItemForm, CalculateForm
+from .forms import CustomerForm, ItemForm
 from django.forms import formset_factory
 
 from .forms import CustomerForm, ItemForm
@@ -44,7 +44,7 @@ def invoice(request):
             return HttpResponse('/about/thankyou')
     else:
         context = {'iform':itemform, 'form':customerform}
-    return render(request, 'accounting/invoice.html', context)
+        return render(request, 'accounting/invoice.html', context)
 
 
         customerform = CustomerForm()
