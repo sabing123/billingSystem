@@ -8,6 +8,8 @@ class Ledger(models.Model):
     c_date_form_end = models.DateField(null=True, blank=True)
 
     def __str__(self):
+        if self.c_name == None:
+            return "Empty!! Name is not inserted"
         return self.c_name
 
 
@@ -19,4 +21,6 @@ class ledger_description(models.Model):
     ledgerDetail = models.ForeignKey(Ledger, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
+        if self.c_description == None:
+            return "Empty!! Description is not inserted"
         return self.c_description

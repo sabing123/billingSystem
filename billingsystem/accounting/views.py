@@ -16,23 +16,15 @@ def home(request):
     return render(request, 'accounting/index.html', context)
 
 
-def create_ledger_page(request, pk):
-    LedgerFormSet = inlineformset_factory(Ledger, ledger_description, ledger_descriptionForm, extra=2,
-                                          can_delete=False)
-    ledger = Ledger.objects.get(id=pk)
-    formset = LedgerFormSet(queryset=ledger_description.objects.none(), instance=ledger)
+def customer_ledger_detail_page(request, pk):
+    customer_ledger = Ledger.objects.get(id=pk)
+    customer_ledger_details = customer_ledger.ledger_description_set.all()
 
-    if request.method == 'POST':
-        formset = LedgerFormSet(request.POST, instance=ledger)
-        if formset.is_valid():
-            formset.save()
-            return redirect('/ledger')
-
-    context = {'formset': formset, 'ledger': ledger}
-    return render(request, 'accounting/createledger.html', context)
+    context = {'customer_ledger': customer_ledger, 'customer_ledger_details': customer_ledger_details}
+    return render(request, 'accounting/ledgerdetailpage.html', context)
 
 
-def c_ledger(request):
+def save_customer_ledger_details(request):
     ledger_d = Ledger.objects.all()
     LedgerForms = LedgerForm()
 
@@ -48,9 +40,47 @@ def c_ledger(request):
     return render(request, 'accounting/ledger.html', context)
 
 
-def ledger_detail_page(request, pk):
-    customer_ledger = Ledger.objects.get(id=pk)
-    customer_ledger_details = customer_ledger.ledger_description_set.all()
-    context = {'customer_ledger': customer_ledger, 'customer_ledger_details': customer_ledger_details}
+def create_ledger(request, pk):
+    ledger_descriptionFormSet = inlineformset_factory(Ledger, ledger_description,ledger_descriptionForm, extra=10,
+                                          can_delete=False)
+    ledger = Ledger.objects.get(id=pk)
+    formset = ledger_descriptionFormSet(queryset=ledger_description.objects.none(), instance=ledger)
 
-    return render(request, 'accounting/ledgerdetailpage.html', context)
+    if request.method == 'POST':
+        formset = ledger_descriptionFormSet(request.POST, instance=ledger)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/ledger')
+
+    context = {'formset': formset, 'ledger': ledger}
+    return render(request, 'accounting/createledger.html', context)
+
+
+
+def update_ledger_detail(request, pk):
+    ledger = ledger_description.objects.get(id=pk)
+
+    formset = ledger_descriptionForm(instance=ledger,)
+
+    if request.method == 'POST':
+        formset = ledger_descriptionForm(request.POST, instance=ledger)
+        if formset.is_valid():
+
+            formset.save()
+            return redirect('/update_ledger/' + str(ledger.pk))
+    context = {'formset': formset, 'ledger':ledger}
+
+    return render(request, 'accounting/updateledger.html', context)
+
+
+def delete_ledger_detail(request, pk):
+    ledgerDescription = ledger_description.objects.get(id=pk)
+
+    if request.method == "POST":
+        ledgerDescription.delete()
+        return redirect('/ledger')
+
+    context = {'item': ledgerDescription}
+    return render(request, 'accounting/delete.html', context)
+
+

@@ -1,4 +1,4 @@
-from django.forms import ModelForm, TextInput, DateInput,NumberInput
+from django.forms import ModelForm, TextInput, DateInput, NumberInput
 
 from .models import *
 
@@ -32,28 +32,29 @@ class LedgerForm(ModelForm):
 
         }
 
+
 class ledger_descriptionForm(ModelForm):
     class Meta:
         model = ledger_description
-        print(model)
-        fields = ['c_description', 'c_current_date', 'c_debt_amt', 'c_credit_amt', 'ledgerDetail', ]
+        fields = ['c_description', 'c_current_date', 'c_debt_amt', 'c_credit_amt', ]
         widgets = {
             'c_description': TextInput(attrs={
                 'placeholder': 'Enter Your Description',
+                'class':'rounded border-success',
             }),
 
-            'c_current_date': NumberInput(attrs={
+            'c_current_date': DateInput(attrs={
                 'type': 'date',
                 'placeholder': 'mm/dd/yyyy',
+                'class': 'rounded border-primary',
             }),
             'c_debt_amt': NumberInput(attrs={
-                'min':'0'
+                'class': 'rounded border-secondary',
+                'min': '0'
             }),
             'c_credit_amt': NumberInput(attrs={
+                'class': 'rounded border-warning',
                 'min': '0'
             }),
 
         }
-
-
-

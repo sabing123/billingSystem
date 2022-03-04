@@ -1,3 +1,4 @@
+
 {% extends 'accounting/main.html' %}
 {% load static %}
 
@@ -17,8 +18,6 @@
         {{ formset.management_form }}
         {% for form in formset %}
         <tr>
-
-
             <td>
                 <b style="color: #dc3545;">*</b> <label>Description </label> &nbsp; &nbsp;
                 {{form.c_description}}
@@ -32,8 +31,6 @@
  &nbsp; &nbsp; &nbsp;
                 <b style="color: #dc3545;">*</b> <label>Credit Amount </label> &nbsp; &nbsp;
                 {{form.c_credit_amt}}
-
-
 
             </td>
         </tr>
