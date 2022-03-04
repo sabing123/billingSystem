@@ -111,5 +111,4 @@ def invoice(request):
 
         customerform = CustomerForm()
         itemform = ItemFormSet()
-        calform = CalculateForm()
-    return render(request, 'accounting/invoice.html', {'form': customerform, 'iform': itemform, 'calform': calform})
+    return render(request, 'accounting/invoice.html', {'form': customerform, 'iform': itemform,})
