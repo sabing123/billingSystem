@@ -29,10 +29,10 @@ class ledger_description(models.Model):
 
 
 class customer_bill(models.Model):
-    PAYMENT_CHOICES =(
-    ("1", "Cash"),
-    ("2", "Credit"),
-    ("3", "Card"),
+    PAYMENT_CHOICES = (
+        ("1", "Cash"),
+        ("2", "Credit"),
+        ("3", "Card"),
     )
     customer_name = models.CharField(max_length=200)
     address = models.CharField(max_length=200, blank=True)
@@ -52,7 +52,7 @@ class customer_bill(models.Model):
     prepared_by = models.CharField(max_length=200, null=True)
     authorized_sign = models.CharField(max_length=200, blank=True, null=True)
     date_time = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return self.customer_name
 
@@ -70,4 +70,3 @@ class bill_item(models.Model):
 
     def __str__(self):
         return self.item_no
-    

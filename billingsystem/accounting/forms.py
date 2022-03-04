@@ -5,6 +5,7 @@ from email.policy import default
 import datetime
 from .models import *
 
+
 class LedgerForm(ModelForm):
     class Meta:
         model = Ledger
@@ -42,7 +43,7 @@ class ledger_descriptionForm(ModelForm):
         widgets = {
             'c_description': TextInput(attrs={
                 'placeholder': 'Enter Your Description',
-                'class':'rounded border-success',
+                'class': 'rounded border-success',
             }),
 
             'c_current_date': DateInput(attrs={
@@ -182,10 +183,3 @@ class ItemForm(forms.ModelForm):
 #     rate = forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 120px;' 'height: 30px;', 'class': 'form-control'}))
 #     discount = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'style': 'width: 120px;' 'height: 30px;', 'class': 'form-control'}))
 #     amount = forms.DecimalField( widget=forms.NumberInput(attrs={'style': 'width: 120px;' 'height: 30px;', 'class': 'form-control'}))
-
-
-
-
-
-
-
