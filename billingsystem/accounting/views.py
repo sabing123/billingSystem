@@ -1,9 +1,9 @@
-<<<<<<< HEAD
+
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import CustomerForm, ItemForm, CalculateForm
 from django.forms import formset_factory
-=======
+
 from django.shortcuts import render, redirect
 
 from django.http import HttpResponse
@@ -12,7 +12,7 @@ from .models import *
 
 from django.contrib import messages
 
->>>>>>> origin/sabin
+
 
 # Create your views here.
 def home(request):
@@ -20,7 +20,7 @@ def home(request):
     return render(request, 'accounting/index.html', context)
 
 
-<<<<<<< HEAD
+
 def invoice(request):
     extra_forms = 1
     ItemFormSet = formset_factory(ItemForm, extra=extra_forms)
@@ -41,7 +41,7 @@ def invoice(request):
         itemform = ItemFormSet()
         calform = CalculateForm()
     return render(request, 'accounting/invoice.html', {'form': customerform, 'iform': itemform, 'calform': calform})
-=======
+
 def c_ledger(request):
     ledger_d = ledgerDetail.objects.all()
     context = {'ledger_d': ledger_d}
@@ -55,4 +55,4 @@ def ledger_detail_page(request, pk):
 
     return render(request, 'accounting/ledgerdetailpage.html', context)
 
->>>>>>> origin/sabin
+
