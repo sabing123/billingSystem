@@ -1,0 +1,81 @@
+{% extends 'accounting/main.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'accounting/navigation.html'%}
+<a href="#" style="float: right;"><i class="fa fa-file-pdf-o" style="font-size:32px;color:red"></i></a>
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table table-sm table-bordered table-hover " style="text-align: center;">
+                <tr>
+
+                </tr>
+                <th colspan="5">
+
+                            <div class="col">
+
+                                <div style="text-align: left; float:left;">
+                                    {{customer_ledger.c_name}} <br>
+                                    Ledger detail<br>
+                                    Date From: {{customer_ledger.c_date_form_start}} -
+                                    {{customer_ledger.c_date_form_end}}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                            </div>
+                            <div class="col">
+                                <div style="text-align: left; float:right">
+                                    Accounting Period<br>
+                                    FY: {{customer_ledger.c_date_form_start}} - {{customer_ledger.c_date_form_end}}<br>
+                                    <div>Print date/Time:
+                                        <script>
+                            date = new Date().toLocaleDateString();
+                            document.write(date);
+                                        </script>
+                                    </div>
+                                </div>
+                    </div>
+
+                </th>
+                <tr>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>Debit Amount</th>
+                    <th>Credit Amt</th>
+                    <th>Balance</th>
+                </tr>
+
+                <tr>
+                    <th>Date</th>
+                    <th>Number</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+                    <tr>
+                    <th></th>
+                    <th>A/c : 03- Divyam Traders- Bhaktapur</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+
+                {% for customer_ledger_details in customer_ledger_details %}
+                <tr>
+                    <td>{{customer_ledger_details.c_current_date}}</td>
+                    <td>{{customer_ledger_details.c_description}}</td>
+                    <td>{{customer_ledger_details.c_debt_amt}}</td>
+                    <td>{{customer_ledger_details.c_credit_amt}}</td>
+                    <td>*</td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
