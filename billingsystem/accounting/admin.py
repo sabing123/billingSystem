@@ -5,3 +5,5 @@ from .models import *
 
 admin.site.register(Ledger)
 admin.site.register(ledger_description)
+admin.site.register(customer_bill)
+admin.site.register(bill_item)

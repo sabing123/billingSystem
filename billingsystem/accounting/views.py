@@ -1,15 +1,15 @@
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.forms import inlineformset_factory
+
+from django.forms import  modelformset_factory
 from django.shortcuts import render, redirect
 
-from django.http import HttpResponse
-from django.forms import inlineformset_factory
-from .forms import CustomerForm, ItemForm, CalculateForm
-from django.forms import formset_factory
-from django import forms
 
 from .models import *
 from .forms import *
 
-from django.contrib import messages
+from django.db import transaction, IntegrityError
 
 
 # Create your views here.
@@ -43,8 +43,8 @@ def save_customer_ledger_details(request):
 
 
 def create_ledger(request, pk):
-    ledger_descriptionFormSet = inlineformset_factory(Ledger, ledger_description,ledger_descriptionForm, extra=10,
-                                          can_delete=False)
+    ledger_descriptionFormSet = inlineformset_factory(Ledger, ledger_description, ledger_descriptionForm, extra=10,
+                                                      can_delete=False)
     ledger = Ledger.objects.get(id=pk)
     formset = ledger_descriptionFormSet(queryset=ledger_description.objects.none(), instance=ledger)
 
@@ -58,19 +58,17 @@ def create_ledger(request, pk):
     return render(request, 'accounting/createledger.html', context)
 
 
-
 def update_ledger_detail(request, pk):
     ledger = ledger_description.objects.get(id=pk)
 
-    formset = ledger_descriptionForm(instance=ledger,)
+    formset = ledger_descriptionForm(instance=ledger, )
 
     if request.method == 'POST':
         formset = ledger_descriptionForm(request.POST, instance=ledger)
         if formset.is_valid():
-
             formset.save()
             return redirect('/update_ledger/' + str(ledger.pk))
-    context = {'formset': formset, 'ledger':ledger}
+    context = {'formset': formset, 'ledger': ledger}
 
     return render(request, 'accounting/updateledger.html', context)
 
@@ -85,22 +83,32 @@ def delete_ledger_detail(request, pk):
     context = {'item': ledgerDescription}
     return render(request, 'accounting/delete.html', context)
 
+
 def invoice(request):
-    extra_forms = 1
-    ItemFormSet = formset_factory(ItemForm, extra=extra_forms)
+    context = {}
+    ItemFormSet = modelformset_factory(bill_item, form=ItemForm)
+    customerform = CustomerForm(request.POST or None)
+    itemform = ItemFormSet(request.POST or None, queryset=bill_item.objects.none())
     if request.method == 'POST':
-        customerform = CustomerForm(request.POST)
-        calform = CalculateForm(request.POST)
-        if 'itemadd' in request.POST and request.POST['itemadd'] == 'true':
-            formset_dictionary_copy = request.POST.copy()
-            formset_dictionary_copy['form-TOTAL_FORMS'] = int(
-                formset_dictionary_copy['form-TOTAL_FORMS']) + extra_forms
-            itemform = ItemFormSet(formset_dictionary_copy)
-        else:
-            itemform = ItemFormSet(request.POST)
-            if itemform.is_valid() & customerform.is_valid() & calform.is_valid():
-                return HttpResponse('/thankyou')
+        if itemform.is_valid() and customerform.is_valid():
+            try:
+
+                with transaction.atomic():
+                    customer = customerform.save(commit=False)
+                    customer.save()
+
+                    for item in itemform:
+                        data = item.save(commit=False)
+                        data.invoice_no = customer
+                        data.save()
+            except IntegrityError:
+                print("Error Encountered")
+
+            return HttpResponse('/about/thankyou')
     else:
+        context = {'iform': itemform, 'form': customerform}
+        return render(request, 'accounting/invoice.html', context)
+
         customerform = CustomerForm()
         itemform = ItemFormSet()
         calform = CalculateForm()

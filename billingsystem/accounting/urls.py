@@ -9,4 +9,5 @@ urlpatterns = [
     path('delete_ledger/<str:pk>/', views.delete_ledger_detail, name="delete_ledger"),
     path('update_ledger/<str:pk>/', views.update_ledger_detail, name="update_ledger"),
     path('invoice', views.invoice, name="invoice"),
+
 ]
