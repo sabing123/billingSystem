@@ -1,217 +1,332 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fabcart</title>
+    <title>Tax Invoice</title>
     <style>
-        body{
-            background-color: #F6F6F6; 
+        body {
+            background-color: #F6F6F6;
             margin: 0;
             padding: 0;
         }
-        h1,h2,h3,h4,h5,h6{
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             margin: 0;
             padding: 0;
         }
-        p{
+
+        p {
             margin: 0;
             padding: 0;
         }
-        .container{
-            width: 80%;
+
+        .container {
+            width: 100%;
             margin-right: auto;
             margin-left: auto;
         }
-        .brand-section{
-           background-color: #0d1033;
-           padding: 10px 40px;
+
+        .brand-section {
+            background-color: #0d1033;
+            padding: 10px 40px;
         }
-        .logo{
+
+        .logo {
             width: 50%;
         }
 
-        .row{
+        .row {
             display: flex;
             flex-wrap: wrap;
         }
-        .col-6{
+
+        .col-6 {
             width: 50%;
             flex: 0 0 auto;
         }
-        .text-white{
+
+        .text-white {
             color: #fff;
         }
-        .company-details{
+
+        .company-details {
             float: right;
             text-align: right;
         }
-        .body-section{
+
+        .body-section {
             padding: 16px;
             border: 1px solid gray;
         }
-        .heading{
+
+        .heading {
             font-size: 20px;
             margin-bottom: 08px;
         }
-        .sub-heading{
+
+        .sub-heading {
             color: #262626;
             margin-bottom: 05px;
         }
-        table{
+
+        table {
             background-color: #fff;
             width: 100%;
             border-collapse: collapse;
         }
-        table thead tr{
+
+        table thead tr {
             border: 1px solid #111;
             background-color: #f2f2f2;
         }
+
         table td {
             vertical-align: middle !important;
             text-align: center;
         }
-        table th, table td {
+
+        table th,
+        table td {
             padding-top: 08px;
             padding-bottom: 08px;
         }
-        .table-bordered{
-            box-shadow: 0px 0px 5px 0.5px gray;
+
+        .table-bordered {
+            box-shadow: 0px 0px 0px 0.5px gray;
         }
-        .table-bordered td, .table-bordered th {
+
+        .table-bordered td,
+        .table-bordered th {
             border: 1px solid #dee2e6;
         }
-        .text-right{
+
+        .text-right {
             text-align: end;
         }
-        .w-20{
+
+        .w-20 {
             width: 20%;
         }
-        .i-10{
+
+        .i-10 {
             width: 10%;
         }
-        .float-right{
+
+        .float-right {
             float: right;
         }
+
+        .float-left {
+            padding: 10px;
+        }
+
+        .button {
+            margin-left: 20px;
+            padding: 8px;
+        }
     </style>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 </head>
+
 <body>
-<form method="post" id="form-container" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="container">
-        <div class="brand-section">
-            <div class="row">
-                <div class="col-6">
-                    <h1 class="text-white">TAX INVOICE</h1>
-                    <h3 class="text-white">VAT NO:606678199</h3>
-                </div>
-                <div class="col-6">
-                    <div class="company-details">
-                        <p class="text-white">DV Trading PVT.LTD</p>
-                        <p class="text-white">Head office-Janakpur-04 Dhanusha</p>
-                        <p class="text-white">Branch office-Kuleshwor-14 Kathmandu</p>
-                        <p class="text-white">Contact No: 977-1-4285484, 4287358</p>
+    <form method="post" id="form-container" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ iform.management_form }}
+        <div class="container">
+            <div class="action-buttons">
+                <a class="btn" href="javascript:window.print()" data-title="Print">
+                    Print
+                </a>
+                <a class="btn" href="#" data-title="PDF">
+                    Export
+                </a>
+            </div>
+            <div class="brand-section">
+                <div class="row">
+                    <div class="col-6">
+                        <h1 class="text-white">TAX INVOICE</h1>
+                        <h3 class="text-white">VAT NO:606678199</h3>
+                    </div>
+                    <div class="col-6">
+                        <div class="company-details">
+                            <h3 class="text-white">DV Trading PVT.LTD</h3>
+                            <p class="text-white">Head office-Janakpur-04 Dhanusha</p>
+                            <p class="text-white">Branch office-Kuleshwor-14 Kathmandu</p>
+                            <p class="text-white">Contact No: 977-1-4285484, 4287358</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="body-section">
-            <div class="row">
-                <div class="col-6">
-                    <p class="sub-heading">Customer Name: {{ form.customer_name }} </p>
-                    <p class="sub-heading">Address: {{ form.address }} </p>
-                    <p class="sub-heading">Phone Number: {{ form.phone }} </p>
-                    <p class="sub-heading">VAT/PAN No: {{ form.pan_no }} </p>
-                </div>
-                <div class="col-6">
-                    <p class="sub-heading">Invoice No:{{ form.invoice_no }} </p>
-                    <p class="sub-heading">Invoice Date: {{ form.invoice_date }}</p>
-                    <p class="sub-heading">Payment Mode: {{ form.payment_mode }}</p>
+            <div class="body-section">
+                <div class="row">
+                    <div class="col-6">
+                        {{ form.customer_name.errors }}
+                        <p class="sub-heading">Customer Name: {{ form.customer_name }} </p>
+                        {{ form.address.errors }}
+                        <p class="sub-heading">Address: {{ form.address }} </p>
+                        {{ form.phone.errors }}
+                        <p class="sub-heading">Phone Number: {{ form.phone }} </p>
+                        {{ form.pan_no.errors }}
+                        <p class="sub-heading">VAT/PAN No: {{ form.pan_no }} </p>
+                    </div>
+                    <div class="col-6">
+                        {{ form.invoice_no.errors }}
+                        <p class="sub-heading">Invoice No:{{ form.invoice_no }} </p>
+                        {{ form.invoice_date.errors }}
+                        <p class="sub-heading">Invoice Date: {{ form.invoice_date }}</p>
+                        {{ form.payment_mode.errors }}
+                        <p class="sub-heading">Payment Mode: {{ form.payment_mode }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="body-section">
-            <h3 class="heading">Items</h3>
-            <br>
-            <table class="table-bordered">
-                <thead>
-                    <tr>
-                        <th>S.N</th>
-                        <th>Particular</th>
-                        <th class="i-10">Alt Qty</th>
-                        <th class="i-10">Quantity</th>
-                        <th class="i-10">Uom</th>
-                        <th class="i-10">Rate</th>
-                        <th class="i-10">Discount</th>
-                        <th class="i-10">Total Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{ iform.management_form }}
-                    {% for iforms in iform %}
-                    <tr class="link-formset">
-                        <td>{{ iforms.item_no }}</td>
-                        <td>{{ iforms.particular }}</td>
-                        <td>{{ iforms.alt_qty }}</td>
-                        <td>{{ iforms.quantity }}</td>
-                        <td>{{ iforms.Uom }}</td>
-                        <td>{{ iforms.rate }}</td>
-                        <td>{{ iforms.discount }}</td>
-                        <td>{{ iforms.amount }}</td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        <td colspan="7" class="text-right">Sub Total</td>
-                        <td>  {{form.subtotal}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="7" class="text-right">Discount</td>
-                        <td>  {{ form.discount }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="7" class="text-right">Taxable Amount</td>
-                        <td> {{ form.taxable_amount }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="7" class="text-right">VAT 13%</td>
-                        <td>   {{ form.vat }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="7" class="text-right">Grand Total</td>
-                        <td>  {{ form.total_amount }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <br>
-            <h6 class="heading">In Word:  {{form.in_words}}</h6>
-            <h6 class="heading">Remark:  {{form.remarks}}</h6>
-            <input type="submit" class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0"
-                value="Submit">
+            <div class="body-section">
+                <!-- <h3 class="heading">Items</h3>
+            <br> -->
+                <table class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Particular</th>
+                            <th class="i-10">Alt Qty</th>
+                            <th class="i-10">Quantity</th>
+                            <th class="i-10">Uom</th>
+                            <th class="i-10">Rate</th>
+                            <th class="i-10">Discount</th>
+                            <th class="i-10">Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for iforms in iform %}
+                        <tr class="link-formset">
+                            {{ iforms.item_no.errors}}
+                            <td>{{ iforms.item_no }}</td>
+                            {{ iforms.particular.errors}}
+                            <td>{{ iforms.particular }}</td>
+                            {{ iforms.alt_qty.errors }}
+                            <td>{{ iforms.alt_qty }}</td>
+                            {{ iforms.quantity.errors }}
+                            <td>{{ iforms.quantity }}</td>
+                            {{ iforms.Uom.errors }}
+                            <td>{{ iforms.Uom }}</td>
+                            {{ iforms.rate.errors }}
+                            <td>{{ iforms.rate }}</td>
+                            {{ iforms.discount.errors }}
+                            <td>{{ iforms.discount }}</td>
+                            {{ iforms.amount.errors }}
+                            <td>{{ iforms.amount }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            {{ form.subtotal.errors }}
+                            <td colspan="7" class="text-right">Sub Total</td>
+                            <td> {{form.subtotal}}</td>
+                        </tr>
+                        <tr>
+                            {{ form.discount.errors }}
+                            <td colspan="7" class="text-right">Discount</td>
+                            <td> {{ form.discount }}</td>
+                        </tr>
+                        <tr>
+                            {{ form.taxable_amount.errors }}
+                            <td colspan="7" class="text-right">Taxable Amount</td>
+                            <td> {{ form.taxable_amount }}</td>
+                        </tr>
+                        <tr>
+                            {{ form.vat.errors }}
+                            <td colspan="7" class="text-right">VAT 13%</td>
+                            <td> {{ form.vat }}</td>
+                        </tr>
+                        <tr>
+                            {{ form.total_amount.errors }}
+                            <td colspan="7" class="text-right">Grand Total</td>
+                            <td> {{ form.total_amount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                {{ form.in_words.errors }}
+                <h6 class="heading">In Word: {{form.in_words}}</h6>
+                {{ form.remarks.errors }}
+                <h6 class="heading">Remark: {{form.remarks}}</h6>
+
+            </div>
+            <div class="row">
+                {{ form.received_by.errors }}
+                <div class="float-left">Received By: {{form.received_by}}
+                </div>
+                {{ form.prepared_by.errors }}
+                <div class="float-left">Prepared By: {{form.prepared_by}}
+                </div>
+                {{ form.authorized_sign.errors }}
+                <div class="float-left">Authorised Signature: {{form.authorized_sign}}
+                </div>
+                <div class="float-left"><input type="submit" class="button" value="Save"></div>
+            </div>
+            <div class="body-section">
+                <p>Print Date & Time: {{ form.date_time }}
+                </p>
+            </div>
         </div>
-        <div class="body-section">
-            <p>Received By:  {{form.received_by}}
-            </p>
-            <p>Prepared By: {{form.prepared_by}}
-            </p>
-            <p>Authorised Signature: {{form.authorized_sign}}
-            </p>
-        </div>  
-        <div class="body-section">
-            <p>Print Date & Time:    {{ form.date_time }}
-            </p>
-        </div>      
-    </div>      
-</form>
+    </form>
 </body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="{% static '/js/jquery.formset.js' %}"></script>
-<script type="text/javascript" >
+<script type="text/javascript">
     $('.link-formset').formset({
         addText: 'Add Item',
         deleteText: 'Remove'
+    });
+</script>
+
+<script>
+    var id= $("#id_form-TOTAL_FORMS").val();
+    console.log(id);
+    for(let i=0; i<10; i++)
+    {
+        console.log(i);
+    $("#id_form-" + i + "-quantity").keyup(function () {
+        var rate = parseFloat($("#id_form-" + i + "-rate").val());
+        var quantity = parseFloat($("#id_form-" + i + "-quantity").val());
+        var discount = parseFloat($("#id_form-" + i + "-discount").val());
+        $("#id_form-" + i + "-amount").val(rate * quantity - discount);
+    });
+    $("#id_form-" + i + "-rate").keyup(function () {
+        var rate = parseFloat($("#id_form-" + i + "-rate").val());
+        var quantity = parseFloat($("#id_form-" + i + "-quantity").val());
+        var discount = parseFloat($("#id_form-" + i + "-discount").val());
+        $("#id_form-" + i + "-amount").val(rate * quantity - discount);
+    });
+    $("#id_form-" + i + "-discount").keyup(function () {
+        var rate = parseFloat($("#id_form-" + i + "-rate").val());
+        var quantity = parseFloat($("#id_form-" + i + "-quantity").val());
+        var discount = parseFloat($("#id_form-" + i + "-discount").val());
+        $("#id_form-" + i + "-amount").val(rate * quantity - discount);
+    });
+    }
+    $("#id_discount").keyup(function () {
+        var subtotal = parseFloat($("#id_subtotal").val());
+        var discount = parseFloat($(this).val());
+        $("#id_taxable_amount").val(subtotal - discount);
+    });
+    $("#id_vat").keyup(function () {
+        var taxableamount = parseFloat($("#id_taxable_amount").val());
+        var vat = parseFloat($("#id_vat").val());
+        $("#id_total_amount").val(taxableamount + vat);
     });
 </script>
 </html>
