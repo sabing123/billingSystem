@@ -13,28 +13,32 @@
                 </tr>
                 <th colspan="5">
 
-                            <div class="col">
+                    <div class="col">
 
-                                <div style="text-align: left; float:left;">
-                                    {{customer_ledger.c_name}} <br>
-                                    Ledger detail<br>
-                                    Date From: {{customer_ledger.c_date_form_start}} -
-                                    {{customer_ledger.c_date_form_end}}
-                                </div>
-                            </div>
-                            <div class="col-6">
-                            </div>
-                            <div class="col">
-                                <div style="text-align: left; float:right">
-                                    Accounting Period<br>
-                                    FY: {{customer_ledger.c_date_form_start}} - {{customer_ledger.c_date_form_end}}<br>
-                                    <div>Print date/Time:
-                                        <script>
+                        <div style="text-align: left; float:left;">
+                            {{customer_ledger.c_name}} <br>
+                            Ledger detail<br>
+                            Date From: {{customer_ledger.c_date_form_start}} -
+                            {{customer_ledger.c_date_form_end}}
+                        </div>
+                    </div>
+                    <div class="col-6">
+                    </div>
+                    <div class="col">
+                        <div style="text-align: left; float:right">
+                            Accounting Period<br>
+                            FY: {{customer_ledger.c_date_form_start}} - {{customer_ledger.c_date_form_end}}<br>
+                            <div>Print date/Time:
+                                <script>
                             date = new Date().toLocaleDateString();
                             document.write(date);
-                                        </script>
-                                    </div>
-                                </div>
+
+
+
+
+                                </script>
+                            </div>
+                        </div>
                     </div>
 
                 </th>
@@ -54,7 +58,7 @@
                     <th></th>
                 </tr>
 
-                    <tr>
+                <tr>
                     <th></th>
                     <th>A/c : 03- Divyam Traders- Bhaktapur</th>
                     <th></th>
@@ -65,11 +69,19 @@
 
                 {% for customer_ledger_details in customer_ledger_details %}
                 <tr>
-                    <td>{{customer_ledger_details.c_current_date}}</td>
-                    <td>{{customer_ledger_details.c_description}}</td>
+                    <td>{{customer_ledger_details.c_current_date | default_if_none:"" }}</td>
+                    <td>{{customer_ledger_details.c_description | default_if_none:""}}</td>
                     <td>{{customer_ledger_details.c_debt_amt}}</td>
                     <td>{{customer_ledger_details.c_credit_amt}}</td>
                     <td>*</td>
+                    <td><a href="{% url 'update_ledger' customer_ledger_details.id %}"><i class="fa fa-upload"
+                                                     style="font-size:24px; color:#32cd32"></i></a>
+                    <td>
+
+                    <td><a href="{% url 'delete_ledger' customer_ledger_details.id %}"><i class="fa fa-trash-o"
+                                                                                          style="font-size:28px;color:red"> </i>
+                    </a></td>
+                    </td>
                 </tr>
                 {% endfor %}
 
@@ -77,5 +89,9 @@
         </div>
     </div>
 </div>
+
+
+</div>
+
 
 {% endblock %}

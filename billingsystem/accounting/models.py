@@ -3,32 +3,36 @@ from tkinter import CASCADE
 from django.db import models
 
 
-class ledgerDetail(models.Model):
+class Ledger(models.Model):
     c_name = models.CharField(max_length=500, null=True)
     c_code = models.CharField(max_length=200, null=True, blank=True)
     c_date_form_start = models.DateField(null=True, blank=True)
     c_date_form_end = models.DateField(null=True, blank=True)
 
     def __str__(self):
+        if self.c_name == None:
+            return "Empty!! Name is not inserted"
         return self.c_name
 
 
 class ledger_description(models.Model):
-    c_description = models.CharField(max_length=200, null=True)
-    c_current_date = models.DateField(null=True, blank=True, default="")
+    c_description = models.CharField(max_length=200, null=True, blank=True)
+    c_current_date = models.DateField(null=True, blank=True, default="-")
     c_debt_amt = models.FloatField(null=True, default='0')
     c_credit_amt = models.FloatField(null=True, default='0')
-    ledgerDetail = models.ForeignKey(ledgerDetail, null=True, on_delete=models.SET_NULL)
+    ledgerDetail = models.ForeignKey(Ledger, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
+        if self.c_description == None:
+            return "Empty!! Description is not inserted"
         return self.c_description
 
 
 class customer_bill(models.Model):
-    PAYMENT_CHOICES =(
-    ("1", "Cash"),
-    ("2", "Credit"),
-    ("3", "Card"),
+    PAYMENT_CHOICES = (
+        ("1", "Cash"),
+        ("2", "Credit"),
+        ("3", "Card"),
     )
     customer_name = models.CharField(max_length=200)
     address = models.CharField(max_length=200, blank=True)
@@ -48,7 +52,7 @@ class customer_bill(models.Model):
     prepared_by = models.CharField(max_length=200, null=True)
     authorized_sign = models.CharField(max_length=200, blank=True, null=True)
     date_time = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return self.customer_name
 
@@ -66,4 +70,3 @@ class bill_item(models.Model):
 
     def __str__(self):
         return self.item_no
-    
