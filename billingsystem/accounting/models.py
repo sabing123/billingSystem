@@ -1,5 +1,3 @@
-from email.policy import default
-from tkinter import CASCADE
 from django.db import models
 
 
@@ -28,28 +26,28 @@ class ledger_description(models.Model):
         return self.c_description
 
 
-class customer_bill(models.Model):
+class Customer(models.Model):
     PAYMENT_CHOICES = (
         ("1", "Cash"),
         ("2", "Credit"),
         ("3", "Card"),
     )
     customer_name = models.CharField(max_length=200)
-    address = models.CharField(max_length=200, blank=True)
-    phone = models.CharField(max_length=200, blank=True, null=True)
-    pan_no = models.CharField(max_length=200, blank=True, null=True)
+    address = models.CharField(max_length=200)
+    phone = models.CharField(max_length=200)
+    pan_no = models.CharField(max_length=200)
     invoice_no = models.CharField(max_length=200, unique=True)
     invoice_date = models.DateField()
     payment_mode = models.CharField(choices=PAYMENT_CHOICES, max_length=50)
     subtotal = models.DecimalField(default=0, max_digits=20, decimal_places=2)
-    discount = models.DecimalField(default=0, max_digits=20, decimal_places=2)
+    discount = models.DecimalField(max_digits=20, decimal_places=2)
     taxable_amount = models.DecimalField(default=0, max_digits=20, decimal_places=2)
-    vat = models.DecimalField(default=0, max_digits=20, decimal_places=2)
+    vat = models.DecimalField(max_digits=20, decimal_places=2)
     total_amount = models.DecimalField(default=0, max_digits=20, decimal_places=2)
     in_words = models.CharField(max_length=500, blank=True, null=True)
     remarks = models.CharField(max_length=500, blank=True, null=True)
     received_by = models.CharField(max_length=200, blank=True, null=True)
-    prepared_by = models.CharField(max_length=200, null=True)
+    prepared_by = models.CharField(max_length=200)
     authorized_sign = models.CharField(max_length=200, blank=True, null=True)
     date_time = models.DateTimeField(auto_now=True)
 
@@ -57,16 +55,16 @@ class customer_bill(models.Model):
         return self.customer_name
 
 
-class bill_item(models.Model):
+class Bill(models.Model):
     item_no = models.CharField(max_length=10)
     particular = models.CharField(max_length=200)
     alt_qty = models.IntegerField(default=0)
-    quantity = models.IntegerField(default=0)
+    quantity = models.IntegerField()
     Uom = models.CharField(max_length=100, blank=True, null=True)
-    rate = models.DecimalField(default=0, decimal_places=2, max_digits=20)
+    rate = models.DecimalField(decimal_places=2, max_digits=20)
     discount = models.DecimalField(default=0, decimal_places=2, max_digits=20)
     amount = models.DecimalField(default=0, decimal_places=2, max_digits=20)
-    invoice_no = models.ForeignKey(customer_bill, related_name='invoice', on_delete=models.CASCADE)
+    invoice_no = models.ForeignKey(Customer, related_name='invoice', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.item_no

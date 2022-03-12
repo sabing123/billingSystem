@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-from django import forms
-=======
 from django.forms import ModelForm, TextInput, DateInput, NumberInput
 from django import forms
-from dataclasses import fields
-from email.policy import default
->>>>>>> bed6ccb31e92da779dfa2daced4e2af185ca5943
 import datetime
 from .models import *
-
+from django.core.exceptions import NON_FIELD_ERRORS
 
 class LedgerForm(ModelForm):
     class Meta:
@@ -75,14 +69,10 @@ PAYMENT_CHOICES = (
 
 
 class CustomerForm(forms.ModelForm):
-<<<<<<< HEAD
     date_time = forms.DateTimeField(initial=datetime.datetime.now, disabled=True)
-=======
-    date_time = forms.DateTimeField(initial=datetime.datetime.now)
-
->>>>>>> bed6ccb31e92da779dfa2daced4e2af185ca5943
     class Meta:
-        model = customer_bill
+        model = Customer
+
         fields = [
             'customer_name',
             'address',
@@ -104,66 +94,30 @@ class CustomerForm(forms.ModelForm):
         ]
 
         widgets = {
-            'customer_name': forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;', 'class': 'form-control'}),
-            'address': forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;', 'class': 'form-control'}),
-            'phone': forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;', 'class': 'form-control'}),
-            'pan_no': forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;', 'class': 'form-control'}),
-            'invoice_no': forms.TextInput(attrs={'style': 'width: 160px;' 'height: 30px;', 'class': 'form-control'}),
-<<<<<<< HEAD
-            'invoice_date': forms.DateInput(attrs={'type': 'date', 'style': 'width: 160px;' 'height: 30px;', 'class': 'form-control'}),
+            'customer_name': forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;'}),
+            'address': forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;'}),
+            'phone': forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;'}),
+            'pan_no': forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;'}),
+            'invoice_no': forms.TextInput(attrs={'placeholder': 'Enter Unique No','style': 'width: 160px;' 'height: 30px;'}),
+            'invoice_date': forms.DateInput(attrs={'type': 'date', 'style': 'width: 160px;' 'height: 30px;'}),
             'payment_mode': forms.Select(choices=PAYMENT_CHOICES),
-            'subtotal': forms.NumberInput(attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}),
-            'discount': forms.NumberInput(attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}),
-            'taxable_amount': forms.NumberInput(attrs={'readonly':'readonly','style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}),
-            'vat': forms.NumberInput(attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}),
-            'total_amount': forms.NumberInput(attrs={'readonly':'readonly','style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}),
-=======
-            'invoice_date': forms.NumberInput(
-                attrs={'type': 'date', 'style': 'width: 160px;' 'height: 30px;', 'class': 'form-control'}),
-            'payment_mode': forms.Select(choices=PAYMENT_CHOICES),
-            'subtotal': forms.NumberInput(attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}),
-            'discount': forms.NumberInput(attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}),
-            'taxable_amount': forms.NumberInput(
-                attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}),
-            'vat': forms.NumberInput(attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}),
-            'total_amount': forms.NumberInput(
-                attrs={'style': 'width: 190px;' 'height: 30px;', 'class': 'form-control'}),
->>>>>>> bed6ccb31e92da779dfa2daced4e2af185ca5943
-            'in_words': forms.TextInput(attrs={'style': 'width: 500px;' 'height: 30px;', 'class': 'form-control'}),
-            'remarks': forms.Textarea(attrs={'style': 'width: 500px;' 'height: 30px;', 'class': 'form-control'}),
-            'received_by': forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}),
-            'prepared_by': forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}),
+            'subtotal': forms.NumberInput(attrs={'style': 'width: 150px;' 'height: 30px;'}),
+            'discount': forms.NumberInput(attrs={'style': 'width: 150px;' 'height: 30px;'}),
+            'taxable_amount': forms.NumberInput(attrs={'readonly':'readonly','style': 'width: 150px;' 'height: 30px;'}),
+            'vat': forms.NumberInput(attrs={'readonly':'readonly','style': 'width: 150px;' 'height: 30px;'}),
+            'total_amount': forms.NumberInput(attrs={'readonly':'readonly','style': 'width: 150px;' 'height: 30px;'}),
+            'in_words': forms.TextInput(attrs={'style': 'width: 500px;' 'height: 30px;'}),
+            'remarks': forms.Textarea(attrs={'style': 'width: 500px;' 'height: 30px;'}),
+            'received_by': forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;'}),
+            'prepared_by': forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;'}),
             'authorized_sign': forms.TextInput(
-                attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}),
+                attrs={'style': 'width: 180px;' 'height: 30px;'}),
         }
 
 
-<<<<<<< HEAD
-=======
-# class CustomerForm(forms.Form):
-#     customer_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;', 'class': 'form-control'}))
-#     address = forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;', 'class': 'form-control'}))
-#     phone = forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;', 'class': 'form-control'}))
-#     pan_no = forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 220px;' 'height: 30px;', 'class': 'form-control'}))
-#     invoice_no = forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 160px;' 'height: 30px;', 'class': 'form-control'}))
-#     invoice_date = forms.DateField(initial=datetime.date.today, widget=forms.NumberInput(attrs={'type': 'date', 'style': 'width: 160px;' 'height: 30px;', 'class': 'form-control'}))
-#     payment_mode= forms.ChoiceField(choices=PAYMENT_CHOICES)
-#     subtotal = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'style': 'width: 200px;' 'height: 30px;', 'class': 'form-control'}))
-#     discount = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'style': 'width: 200px;' 'height: 30px;', 'class': 'form-control'}))
-#     taxable_amount = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'style': 'width: 200px;' 'height: 30px;', 'class': 'form-control'}))
-#     vat = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'style': 'width: 200px;' 'height: 30px;', 'class': 'form-control'}))
-#     total_amount = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'style': 'width: 200px;' 'height: 30px;', 'class': 'form-control'}))
-#     in_words = forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 500px;' 'height: 30px;', 'class': 'form-control'}))
-#     remarks = forms.CharField(required=False, widget=forms.Textarea(attrs={'style': 'width: 500px;' 'height: 80px;', 'class': 'form-control'}))
-#     received_by= forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}))
-#     prepared_by= forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}))
-#     authorized_sign= forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}))
-#     date_time = forms.DateTimeField(initial=datetime.datetime.now, widget=forms.DateTimeInput(attrs={'style': 'width: 180px;' 'height: 30px;', 'class': 'form-control'}))
-
->>>>>>> bed6ccb31e92da779dfa2daced4e2af185ca5943
 class ItemForm(forms.ModelForm):
     class Meta:
-        model = bill_item
+        model = Bill
 
         fields = [
             'item_no',
@@ -177,46 +131,14 @@ class ItemForm(forms.ModelForm):
         ]
 
         widgets = {
-<<<<<<< HEAD
-            'item_no': forms.TextInput(attrs={'class': 'formset-field','style': 'width: 50px;' 'height: 30px;', 'class': 'form-control'}),
-            'particular': forms.Textarea(attrs={'class': 'formset-field', 'style': 'width: 250px;' 'height: 30px;', 'class': 'form-control'}),
-            'alt_qty': forms.TextInput(attrs={'class': 'formset-field', 'style': 'width: 80px;' 'height: 30px;', 'class': 'form-control'}),
-            'quantity': forms.TextInput(attrs={'class': 'formset-field', 'style': 'width: 80px;' 'height: 30px;', 'class': 'form-control'}),
-            'Uom': forms.TextInput(attrs={'class': 'formset-field', 'style': 'width: 70px;' 'height: 30px;', 'class': 'form-control'}),
-            'rate': forms.NumberInput(attrs={'class': 'formset-field', 'style': 'width: 110px;' 'height: 30px;', 'class': 'form-control'}),
-            'discount': forms.NumberInput(attrs={'class': 'formset-field', 'style': 'width: 110px;' 'height: 30px;', 'class': 'form-control'}),
-            'amount': forms.NumberInput(attrs={'class': 'formset-field', 'readonly':'readonly', 'style': 'width: 110px;' 'height: 30px;', 'class': 'form-control'}),
+            'item_no': forms.TextInput(attrs={'class': 'formset-field','style': 'width: 50px;' 'height: 30px;'}),
+            'particular': forms.Textarea(attrs={'class': 'formset-field', 'style': 'width: 250px;' 'height: 30px;'}),
+            'alt_qty': forms.TextInput(attrs={'class': 'formset-field', 'style': 'width: 80px;' 'height: 30px;'}),
+            'quantity': forms.TextInput(attrs={'class': 'formset-field', 'style': 'width: 80px;' 'height: 30px;'}),
+            'Uom': forms.TextInput(attrs={'class': 'formset-field', 'style': 'width: 70px;' 'height: 30px;'}),
+            'rate': forms.NumberInput(attrs={'class': 'formset-field', 'style': 'width: 110px;' 'height: 30px;'}),
+            'discount': forms.NumberInput(attrs={'class': 'formset-field', 'style': 'width: 110px;' 'height: 30px;'}),
+            'amount': forms.NumberInput(attrs={'class': 'formset-field', 'readonly':'readonly', 'style': 'width: 110px;' 'height: 30px;'}),
         }
 
 
-
-
-=======
-            'item_no': forms.TextInput(
-                attrs={'class': 'formset-field', 'style': 'width: 50px;' 'height: 30px;', 'class': 'form-control'}),
-            'particular': forms.Textarea(
-                attrs={'class': 'formset-field', 'style': 'width: 280px;' 'height: 30px;', 'class': 'form-control'}),
-            'alt_qty': forms.TextInput(
-                attrs={'class': 'formset-field', 'style': 'width: 80px;' 'height: 30px;', 'class': 'form-control'}),
-            'quantity': forms.TextInput(
-                attrs={'class': 'formset-field', 'style': 'width: 80px;' 'height: 30px;', 'class': 'form-control'}),
-            'Uom': forms.TextInput(
-                attrs={'class': 'formset-field', 'style': 'width: 70px;' 'height: 30px;', 'class': 'form-control'}),
-            'rate': forms.NumberInput(
-                attrs={'class': 'formset-field', 'style': 'width: 110px;' 'height: 30px;', 'class': 'form-control'}),
-            'discount': forms.NumberInput(
-                attrs={'class': 'formset-field', 'style': 'width: 110px;' 'height: 30px;', 'class': 'form-control'}),
-            'amount': forms.NumberInput(
-                attrs={'class': 'formset-field', 'style': 'width: 110px;' 'height: 30px;', 'class': 'form-control'}),
-        }
-
-# class ItemForm(forms.Form):
-#     item_no = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 50px;' 'height: 30px;', 'class': 'form-control'}))
-#     particular = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 280px;' 'height: 30px;', 'class': 'form-control'}))
-#     # alt_qty=forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 100px;' 'height: 30px;', 'class': 'form-control'}))
-#     qty = forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 100px;' 'height: 30px;', 'class': 'form-control'}))
-#     Uom = forms.CharField(required=False, widget=forms.TextInput(attrs={'style': 'width: 100px;' 'height: 30px;', 'class': 'form-control'}))
-#     rate = forms.DecimalField(widget=forms.NumberInput(attrs={'style': 'width: 120px;' 'height: 30px;', 'class': 'form-control'}))
-#     discount = forms.DecimalField(required=False, widget=forms.NumberInput(attrs={'style': 'width: 120px;' 'height: 30px;', 'class': 'form-control'}))
-#     amount = forms.DecimalField( widget=forms.NumberInput(attrs={'style': 'width: 120px;' 'height: 30px;', 'class': 'form-control'}))
->>>>>>> bed6ccb31e92da779dfa2daced4e2af185ca5943

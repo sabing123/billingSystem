@@ -142,6 +142,7 @@
             }
           }
     </style>
+    
 </head>
 <body>
     {% for message in messages %}
@@ -155,7 +156,6 @@
     <form method="post" id="form-container" enctype="multipart/form-data">
         {% csrf_token %}
         {{ iform.management_form }}
-        {{ form.non_field_errors}}
         <div class="container">
             <div class="action-buttons">
                 <a type="button" id="printbutton" onclick="javascript:window.print()" value="Print"> <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i></a>
@@ -195,7 +195,7 @@
                         {{ form.invoice_date.errors }}
                         <p class="sub-heading">Invoice Date: {{ form.invoice_date }}</p>
                         {{ form.payment_mode.errors }}
-                        <p class="sub-heading">Payment Mode: {{ form.payment_mode }}</p>
+                        <p class="sub-heading">Payment Mode: {{ form.get_payment_mode_display }}</p>
                     </div>
                 </div>
             </div>
@@ -284,7 +284,6 @@
                 {{ form.authorized_sign.errors }}
                 <div class="float-left">Authorised Signature: {{form.authorized_sign}}
                 </div>
-                <input type="submit" id="savebutton" class="button" value="Save">
                
             </div>
             <div class="body-section">
@@ -294,49 +293,5 @@
         </div>
     </form>
 </body>
-
-<script type="text/javascript">
-    $('.link-formset').formset({
-        addText: 'Add Item',
-        deleteText: '-'
-    });
-</script>
-
-<script type = "text/javascript">
-    var id= $("#id_form-TOTAL_FORMS").val();
-    console.log(id);
-    for(let i=0; i < 10; i++)
-    {
-        console.log(i);
-    $("#id_form-"+i+"-quantity").keyup(function () {
-        var rate = parseFloat($("#id_form-"+i+"-rate").val());
-        var quantity = parseFloat($("#id_form-"+i+"-quantity").val());
-        var discount = parseFloat($("#id_form-"+i+"-discount").val());
-        $("#id_form-"+i+"-amount").val(rate * quantity - discount);
-    });
-    $("#id_form-"+i+"-rate").keyup(function () {
-        var rate = parseFloat($("#id_form-"+i+"-rate").val());
-        var quantity = parseFloat($("#id_form-"+i+"-quantity").val());
-        var discount = parseFloat($("#id_form-"+i+"-discount").val());
-        $("#id_form-"+i+"-amount").val(rate * quantity - discount);
-    });
-    $("#id_form-"+i+"-discount").keyup(function () {
-        var rate = parseFloat($("#id_form-"+i+"-rate").val());
-        var quantity = parseFloat($("#id_form-"+i+"-quantity").val());
-        var discount = parseFloat($("#id_form-"+i+"-discount").val());
-        $("#id_form-"+i+"-amount").val(rate * quantity - discount);
-    });
-    }
-    
-    $("#id_discount").keyup(function () {
-        var subtotal = parseFloat($("#id_subtotal").val());
-        var discount = parseFloat($(this).val());
-        $("#id_taxable_amount").val(subtotal - discount);
-        $("#id_vat").val(parseFloat($("#id_taxable_amount").val()) * 13/100); 
-        var tax= parseFloat($("#id_taxable_amount").val());
-        var vat=  parseFloat($("#id_vat").val());
-        $("#id_total_amount").val(tax + vat);
-    });
-</script>
 </html>
 {% endblock %}

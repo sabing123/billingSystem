@@ -46,7 +46,6 @@ background-color:#d0d0d0
   .sidenav a {font-size: 18px;}
 }
 
-<<<<<<< HEAD
 /* override styles when printing */
 @media print {
   body {
@@ -55,10 +54,8 @@ background-color:#d0d0d0
     background-color: #fff;
   } 
 }
-=======
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
->>>>>>> bed6ccb31e92da779dfa2daced4e2af185ca5943
