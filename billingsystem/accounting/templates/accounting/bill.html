@@ -200,7 +200,7 @@
                 </div>
             </div>
 
-            <div class="body-section">
+            <div class="body-section" >
                 <!-- <h3 class="heading">Items</h3>
             <br> -->
                 <table class="table-bordered">
@@ -234,8 +234,7 @@
                             {{ iforms.discount.errors }}
                             <td>{{ iforms.discount }}</td>
                             {{ iforms.amount.errors }}
-                            <td>{{ iforms.amount }}</td>
-                           
+                            <td class="sum">{{ iforms.amount }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -293,21 +292,18 @@
             </div>
         </div>
     </form>
-</body>
 
 <script type="text/javascript">
     $('.link-formset').formset({
         addText: 'Add Item',
-        deleteText: '-'
+        deleteText: '-',
     });
-</script>
 
-<script type = "text/javascript">
+    $(document).ready(function(){
     var id= $("#id_form-TOTAL_FORMS").val();
     console.log(id);
-    for(let i=0; i < 10; i++)
+    for(let i=0; i < id; i++)
     {
-        console.log(i);
     $("#id_form-"+i+"-quantity").keyup(function () {
         var rate = parseFloat($("#id_form-"+i+"-rate").val());
         var quantity = parseFloat($("#id_form-"+i+"-quantity").val());
@@ -325,9 +321,11 @@
         var quantity = parseFloat($("#id_form-"+i+"-quantity").val());
         var discount = parseFloat($("#id_form-"+i+"-discount").val());
         $("#id_form-"+i+"-amount").val(rate * quantity - discount);
-    });
-    }
     
+    });   
+    }
+    });
+
     $("#id_discount").keyup(function () {
         var subtotal = parseFloat($("#id_subtotal").val());
         var discount = parseFloat($(this).val());
@@ -338,5 +336,12 @@
         $("#id_total_amount").val(tax + vat);
     });
 </script>
+</body>
 </html>
 {% endblock %}
+    
+<!-- $('#add_more').click(function() {
+    var form_idx = $('#id_form-TOTAL_FORMS').val();
+    $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+    $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+}); -->

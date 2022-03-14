@@ -85,7 +85,7 @@ def delete_ledger_detail(request, pk):
 
 def invoice(request):
     context = {}
-    ItemFormSet = modelformset_factory(Bill, form=ItemForm)
+    ItemFormSet = modelformset_factory(Bill, form=ItemForm, extra=5)
     customerform = CustomerForm(request.POST or None)
     itemform = ItemFormSet(request.POST or None, queryset=Bill.objects.none())
     if request.method == 'POST':

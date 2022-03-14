@@ -138,7 +138,7 @@ class ItemForm(forms.ModelForm):
             'Uom': forms.TextInput(attrs={'class': 'formset-field', 'style': 'width: 70px;' 'height: 30px;'}),
             'rate': forms.NumberInput(attrs={'class': 'formset-field', 'style': 'width: 110px;' 'height: 30px;'}),
             'discount': forms.NumberInput(attrs={'class': 'formset-field', 'style': 'width: 110px;' 'height: 30px;'}),
-            'amount': forms.NumberInput(attrs={'class': 'formset-field', 'readonly':'readonly', 'style': 'width: 110px;' 'height: 30px;'}),
+            'amount': forms.NumberInput(attrs={'class': 'formset-field', 'style': 'width: 110px;' 'height: 30px;'}),
         }
 
 
