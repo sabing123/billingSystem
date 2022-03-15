@@ -56,14 +56,14 @@ class Customer(models.Model):
 
 
 class Bill(models.Model):
-    item_no = models.CharField(max_length=10)
-    particular = models.CharField(max_length=200)
-    alt_qty = models.IntegerField(default=0)
-    quantity = models.IntegerField()
+    item_no = models.CharField(max_length=10, blank=True, null=True)
+    particular = models.CharField(max_length=200, blank=True, null=True)
+    alt_qty = models.IntegerField(default=0, blank=True, null=True)
+    quantity = models.IntegerField(blank=True, null=True)
     Uom = models.CharField(max_length=100, blank=True, null=True)
-    rate = models.DecimalField(decimal_places=2, max_digits=20)
-    discount = models.DecimalField(default=0, decimal_places=2, max_digits=20)
-    amount = models.DecimalField(default=0, decimal_places=2, max_digits=20)
+    rate = models.DecimalField(decimal_places=2, max_digits=20, blank=True, null=True)
+    discount = models.DecimalField(default=0, decimal_places=2, max_digits=20, blank=True, null=True)
+    amount = models.DecimalField(default=0, decimal_places=2, max_digits=20, blank=True, null=True)
     invoice_no = models.ForeignKey(Customer, related_name='invoice', on_delete=models.CASCADE)
 
     def __str__(self):

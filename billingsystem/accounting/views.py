@@ -85,7 +85,7 @@ def delete_ledger_detail(request, pk):
 
 def invoice(request):
     context = {}
-    ItemFormSet = modelformset_factory(Bill, form=ItemForm, extra=5)
+    ItemFormSet = modelformset_factory(Bill, form=ItemForm, extra=8)
     customerform = CustomerForm(request.POST or None)
     itemform = ItemFormSet(request.POST or None, queryset=Bill.objects.none())
     if request.method == 'POST':
@@ -98,9 +98,9 @@ def invoice(request):
                         data = item.save(commit=False)
                         data.invoice_no = customer
                         data.save()
-                        messages.success(request, 'Bill saved successfully')
+                    messages.success(request, 'Bill saved successfully')   
             except IntegrityError:
-                print("Error Encountered")
+                messages.error(request, 'Data entered is not correct')
             return redirect("/invoice")
         else:
             messages.error(request, 'Data entered is not correct or invoice number is not unique')

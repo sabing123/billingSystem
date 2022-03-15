@@ -34,7 +34,7 @@
         }
 
         .brand-section {
-            background-color: #0d1033;
+            background-color: #1a2491;
             padding: 10px 10px;
         }
 
@@ -53,7 +53,7 @@
         }
 
         .text-white {
-            color: #fff;
+            color: #000;
         }
 
         .company-details {
@@ -323,8 +323,17 @@
         $("#id_form-"+i+"-amount").val(rate * quantity - discount);
     
     });   
-    }
+    //sum amount for subtotal
+    $("#id_subtotal").click(function() {
+        var total = 0;
+        $("#id_form-"+i+"-amount").each(function(){
+           total += +($(this).val());
+        });
+        console.log(total)
+        $("#id_subtotal").val(total);
     });
+}
+});
 
     $("#id_discount").keyup(function () {
         var subtotal = parseFloat($("#id_subtotal").val());
